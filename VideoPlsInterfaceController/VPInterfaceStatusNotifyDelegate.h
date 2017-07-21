@@ -8,14 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#ifdef VP_VIDEOOS
-#import <VideoPlsCytronSDK/VPCytronNotificationNameSet.h>
-#endif
-
-#ifdef VP_LIVEOS
-#import <VideoPlsLiveSDK/LDIVAPlayback.h>
-#endif
-
 
 #ifdef VP_VIDEOOS
 /**
@@ -52,18 +44,42 @@
 - (void)vp_interfaceLoadError:(NSString *)errorString;
 
 #ifdef VP_VIDEOOS
+
+/**
+ *  交互状态枚举
+ */
+typedef NS_ENUM(NSInteger, VPIViewNodeState) {
+    VPIViewNodeTagOpenInfoLayer,               //云链被点击,打开云窗,右边遮住小半屏,可自行根据需求暂停视频(最好隐藏控制栏)
+    VPIViewInfoLayerClose,                     //云窗关闭,如果之前控制暂停视频可以继续播放
+    
+    //以下两个状态为信息层打开外链的通知,如果不由SDK控制外链打开不会发送这两个通知
+    VPIViewInfoLayerOpenWebView,               //云窗的外链被点击,打开网页(遮盖整个互动层),最好暂停视频(最好隐藏控制栏)
+    VPIViewWebViewClose,                       //网页关闭,可以继续播放
+    
+    VPIVideoClipShow,                          // 视频中插显示，暂停视频
+    VPIVideoClipFinish                         // 视频中插结束，继续播放
+};
+
 /**
  *  点播在互动内容被点击或者触发时可能需要做的某些对播放器的改变
  *  直播暂时不会影响到播放器相关,所以暂时没有这层通知
  *  @param changeStatus 互动内容触发,对应触发内容见 VPCytronViewNodeState
  */
-- (void)vp_interfaceViewChangeStatus:(VPCytronViewNodeState)changeStatus;
+- (void)vp_interfaceViewChangeStatus:(VPIViewNodeState)changeStatus;
+
+/**
+ *  云链/云窗枚举
+ */
+typedef NS_ENUM(NSInteger, VPIViewNodeType) {
+    VPIViewNodeTag,                            //云链
+    VPIViewNodeInfoLayer                       //云窗
+};
 
 /**
  *  热点或者信息层显示
  *  @param itemType 显示的类型
  */
-- (void)vp_interfaceCytronItemShow:(VPCytronViewNodeType)itemType;
+- (void)vp_interfaceCytronItemShow:(VPIViewNodeType)itemType;
 
 #endif
 

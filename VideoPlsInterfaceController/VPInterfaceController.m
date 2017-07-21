@@ -13,15 +13,19 @@
 
 #ifdef VP_VIDEOOS
 #import <VideoPlsCytronSDK/VPCytronView.h>
+#import <VideoPlsCytronSDK/VPCytronNotificationNameSet.h>
 #undef VP_USE_VIDEOOS
 #define VP_USE_VIDEOOS 1
 #endif
 
 #ifdef VP_LIVEOS
 #import <VideoPlsLiveSDK/LDSDKIVAView.h>
+#import <VideoPlsLiveSDK/LDIVAPlayback.h>
 #undef VP_USE_LIVEOOS
 #define VP_USE_LIVEOOS 1
 #endif
+
+#import "VPInterfaceStatusNotifyDelegate.h"
 
 @interface VPInterfaceController()
 
@@ -437,7 +441,7 @@
                         break;
                 }
                 */
-                [self.delegate vp_interfaceCytronItemShow:itemType];
+                [self.delegate vp_interfaceCytronItemShow:(VPIViewNodeType)itemType];
             }
         }
     }
@@ -450,7 +454,7 @@
             if([userInfo objectForKey:@"CytronNodeState"]) {
                 VPCytronViewNodeState itemStatus = [[userInfo objectForKey:@"CytronNodeState"] integerValue];
 
-                [self.delegate vp_interfaceViewChangeStatus:itemStatus];
+                [self.delegate vp_interfaceViewChangeStatus:(VPIViewNodeState)itemStatus];
             }
         }
     }

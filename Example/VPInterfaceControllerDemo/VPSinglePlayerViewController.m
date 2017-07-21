@@ -250,9 +250,9 @@
     NSLog(@"%@",errorString);
 }
 
-- (void)vp_interfaceViewChangeStatus:(VPCytronViewNodeState)changeStatus {
+- (void)vp_interfaceViewChangeStatus:(VPIViewNodeState)changeStatus {
     
-    if (changeStatus == VPCytronViewInfoLayerOpenWebView || changeStatus == VPCytronViewNodeTagOpenInfoLayer || changeStatus == VPCytronVideoClipShow) {
+    if (changeStatus == VPIViewInfoLayerOpenWebView || changeStatus == VPIViewNodeTagOpenInfoLayer || changeStatus == VPIVideoClipShow) {
         [_mediaControlView hideControlView];
     }
 
@@ -260,7 +260,7 @@
     
     if (!_isLive) {
         switch (changeStatus) {
-            case VPCytronViewInfoLayerOpenWebView: {
+            case VPIViewInfoLayerOpenWebView: {
                 
                 if ([_player isPlaying]) {
                     _needToPlay = YES;
@@ -268,7 +268,7 @@
                 }
                 break;
             }
-            case VPCytronViewWebViewClose: {
+            case VPIViewWebViewClose: {
                 
                 if (_videoClipOpen) {
                     //TODO: 如果接管webView打开，需要发通知
@@ -283,7 +283,7 @@
                 }
                 break;
             }
-            case VPCytronVideoClipShow: {
+            case VPIVideoClipShow: {
                 
                 _videoClipOpen = YES;
                 
@@ -294,7 +294,7 @@
                 
                 break;
             }
-            case VPCytronVideoClipFinish: {
+            case VPIVideoClipFinish: {
                 _videoClipOpen = NO;
                 
                 if (_needToPlay) {
@@ -312,7 +312,7 @@
     
 }
 
-- (void)vp_interfaceCytronItemShow:(VPCytronViewNodeType)itemType {
+- (void)vp_interfaceCytronItemShow:(VPIViewNodeType)itemType {
     
 }
 
