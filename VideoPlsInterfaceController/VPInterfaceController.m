@@ -308,6 +308,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceLoadError:) name:VPCytronViewLoadErrorNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceItemShow:) name:VPCytronViewNodeStateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceViewChangeStatus:) name:VPCytronViewNodeStateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceActionNotify:) name:VPCytronActionNotification object:nil];
     }
 #endif
     
@@ -316,6 +317,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewOpen:) name:LDSDKMyAppLinkDidOpenNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceLoadComplete:) name:LDSDKIVAViewLoadCompleteNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceLoadError:) name:LDSDKIVAViewLoadErrorNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceActionNotify:) name:LDSDKTagActionNotification object:nil];
     }
 #endif
 }
@@ -328,6 +330,7 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:VPCytronViewLoadErrorNotification object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:VPCytronViewNodeStateNotification object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:VPCytronViewNodeStateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:VPCytronActionNotification object:nil];
     }
 #endif
     
@@ -336,6 +339,7 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKMyAppLinkDidOpenNotification object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKIVAViewLoadCompleteNotification object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKIVAViewLoadErrorNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKTagActionNotification object:nil];
     }
 #endif
 }
@@ -419,6 +423,109 @@
     }
 }
 
+- (void)interfaceActionNotify:(NSNotification *)sender {
+    if(self.delegate) {
+        if([self.delegate respondsToSelector:@selector(vp_interfaceActionNotify:)]) {
+            
+            NSDictionary *userInfo = sender.userInfo;
+            NSMutableDictionary *actionDict = [NSMutableDictionary dictionaryWithDictionary:userInfo];
+            
+            if(![actionDict objectForKey:@"adType"]) {
+                NSLog(@"数据监测统计有误");
+            }
+            
+            [actionDict setObject:[actionDict objectForKey:@"adType"] forKey:@"adTypeDetail"];
+            
+            NSString *adType = [actionDict objectForKey:@"adType"];
+            
+#ifdef VP_VIDEOOS
+            if(_cytronView) {
+                VPCytronViewNodeType nodeType = VPCytronViewNodeInfoLayer;
+                if([actionDict objectForKey:@"nodeType"]) {
+                    nodeType = [[actionDict objectForKey:@"nodeType"] integerValue];
+                }
+                
+                if(nodeType == VPCytronViewNodeTag) {
+                    [actionDict setObject:@(VPIActionItemTypeTag) forKey:@"adType"];
+                    //send
+                    [self.delegate vp_interfaceActionNotify:actionDict];
+                    return;
+                }
+            }
+#endif
+#ifdef VP_LIVEOS
+            if(_liveView) {
+                if([self isString:adType containsString:@"Tag"]) {
+                    [actionDict setObject:@(VPIActionItemTypeTag) forKey:@"adType"];
+                    //send
+                    [self.delegate vp_interfaceActionNotify:actionDict];
+                    return;
+                }
+            }
+#endif
+            
+            VPIActionItemType itemType = 0;
+            if([self isString:adType containsString:@"AdInfo"] ||
+               [self isString:adType containsString:@"Poster"]) {
+                itemType = VPIActionItemTypeAdInfo;
+            }
+            else if([self isString:adType containsString:@"BasicWiki"]) {
+                itemType = VPIActionItemTypeBasicWiki;
+            }
+            else if([self isString:adType containsString:@"BasicMix"]) {
+                itemType = VPIActionItemTypeBasicMix;
+            }
+            else if([self isString:adType containsString:@"CardGame"]) {
+                itemType = VPIActionItemTypeCardGame;
+            }
+            else if([self isString:adType containsString:@"Vote"]) {
+                itemType = VPIActionItemTypeVote;
+            }
+            else if([self isString:adType containsString:@"GatTip_image"] ||
+                    [self isString:adType containsString:@"Picture"]) {
+                itemType = VPIActionItemTypeImage;
+            }
+            else if([self isString:adType containsString:@"Gift"] ||
+                    [self isString:adType containsString:@"Coupon"]) {
+                itemType = VPIActionItemTypeGift;
+            }
+            else if([self isString:adType containsString:@"EasyShop"] ||
+                    [self isString:adType containsString:@"GoodAd"]) {
+                itemType = VPIActionItemTypeEasyShop;
+            }
+            else if([self isString:adType containsString:@"Lottery"]) {
+                itemType = VPIActionItemTypeLottery;
+            }
+            else if([self isString:adType containsString:@"Bubble"]) {
+                itemType = VPIActionItemTypeBubble;
+            }
+            else if([self isString:adType containsString:@"Video"]) {
+                itemType = VPIActionItemTypeVideoClip;
+            }
+            else if([self isString:adType containsString:@"NEWS"] ||
+                    [self isString:adType containsString:@"News"]) {
+                itemType = VPIActionItemTypeNews;
+            }
+            else if([self isString:adType containsString:@"Text"]) {
+                itemType = VPIActionItemTypeText;
+            }
+            else if([self isString:adType containsString:@"Favor"]) {
+                itemType = VPIActionItemTypeFavor;
+            }
+            else if([self isString:adType containsString:@"GoodList"]) {
+                itemType = VPIActionItemTypeGoodList;
+            }
+            else {
+                NSLog(@"未知广告类型");
+            }
+            
+            [actionDict setObject:@(itemType) forKey:@"adType"];
+            
+            [self.delegate vp_interfaceActionNotify:actionDict];
+        }
+    }
+}
+
 #ifdef VP_VIDEOOS
 - (void)interfaceItemShow:(NSNotification *)sender {
     if(self.delegate) {
@@ -461,6 +568,15 @@
 }
 
 #endif
+
+- (BOOL)isString:(NSString *)string containsString:(NSString *)insideString {
+    if(([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)) {
+        return [string containsString:insideString];
+    }
+    else {
+        return [string rangeOfString:insideString].location != NSNotFound;
+    }
+}
 
 
 @end

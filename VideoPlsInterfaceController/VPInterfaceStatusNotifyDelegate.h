@@ -43,6 +43,57 @@
  */
 - (void)vp_interfaceLoadError:(NSString *)errorString;
 
+
+
+typedef NS_ENUM(NSUInteger, VPIActionItemType) {
+    VPIActionItemTypeTag,               // 热点
+    VPIActionItemTypeAdInfo,            // 海报
+    VPIActionItemTypeBasicWiki,         // 百科
+    VPIActionItemTypeBasicMix,          // 轮播广告
+    VPIActionItemTypeCardGame,          // 卡牌
+    VPIActionItemTypeVote,              // 投票
+    VPIActionItemTypeImage,             // 云图
+    VPIActionItemTypeGift,              // 红包
+    VPIActionItemTypeEasyShop,          // 轻松购,商品
+    VPIActionItemTypeLottery,           // 趣味抽奖
+    VPIActionItemTypeBubble,            // 灵动气泡
+    VPIActionItemTypeVideoClip,         // 中插广告
+    VPIActionItemTypeNews,              // 新闻
+    VPIActionItemTypeText,              // 图文链
+    VPIActionItemTypeFavor,             // 点赞
+    VPIActionItemTypeGoodList,          // 电商清单
+};
+
+/**
+ *  事件发送通知类型枚举
+ */
+typedef NS_ENUM(NSUInteger, VPIActionType) {
+    VPIActionTypeShow,                  // 显示
+    VPIActionTypeClick,                 // 点击
+    VPIActionTypeClose,                 // 关闭
+};
+
+/**
+ *  事件监控通知
+ *  @param actionDictionary 参数字典
+ *  对应
+ *  Key:    resourceID
+ *  Value:  string
+ *
+ *  Key:    adID
+ *  Value:  string
+ *
+ *  Key:    adType
+ *  Value:  VPIActionItemType
+ *
+ *  Key:    adTypeDetail
+ *  Value:  string(从点播或直播来的原始数据)
+ *
+ *  Key:    action
+ *  Value:  VPIActionType
+ */
+- (void)vp_interfaceActionNotify:(NSDictionary *)actionDictionary;
+
 #ifdef VP_VIDEOOS
 
 /**

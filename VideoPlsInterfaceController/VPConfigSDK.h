@@ -16,9 +16,11 @@
  *  初始化配置设置SDK相关key值,只可设置一次,如果不使用点播/直播功能,对应key可传空
  *  @param appKey 点播使用的appKey
  *  @param platformID 直播使用的platformID
+ *  @param webP 是否使用了SDWebImage/webP,可使用webP加载图片
  */
 + (void)setAppKey:(NSString *)appKey
-       platformID:(NSString *)platformID;
+       platformID:(NSString *)platformID
+          useWebP:(BOOL)webP;
 
 
 /**

@@ -316,6 +316,10 @@
     
 }
 
+- (void)vp_interfaceActionNotify:(NSDictionary *)actionDictionary {
+    NSLog(@"%@", actionDictionary);
+}
+
 /*
 #pragma mark - Navigation
 

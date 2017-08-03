@@ -20,7 +20,8 @@
     // Override point for customization after application launch.
     
     [VPConfigSDK setAppKey:@"B1016yZS-"
-                platformID:@"575e6e087c395e0501980c89"];
+                platformID:@"575e6e087c395e0501980c89"
+                useWebP:NO];
     return YES;
 }
 
