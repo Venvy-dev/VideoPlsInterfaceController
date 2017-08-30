@@ -107,7 +107,7 @@
     NSAssert(platformUserID, @"PlatformUserID不能为空");
     self = [self initWithFrame:frame videoIdentifier:identifier isLive:YES];
     if(self) {
-        [self setPlatformUserID:_platformUserID];
+        [self setPlatformUserID:platformUserID];
     }
     return self;
 }
@@ -314,7 +314,7 @@
     
 #ifdef VP_LIVEOS
     if(_liveView) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewOpen:) name:LDSDKMyAppLinkDidOpenNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewOpen:) name:@"LDSDKWebViewURL" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceLoadComplete:) name:LDSDKIVAViewLoadCompleteNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceLoadError:) name:LDSDKIVAViewLoadErrorNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceActionNotify:) name:LDSDKTagActionNotification object:nil];
