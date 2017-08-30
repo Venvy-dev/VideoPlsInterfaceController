@@ -1,7 +1,9 @@
 # VideoPlsInterfaceContronller
-###1.7.1
+###1.7.2
 1. 修复直播发通知未接收到的bug
-2. 修复直播platformID未设置成功的bug
+
+###1.7.1
+1. 修复直播platformID未设置成功的bug
 
 ###1.5.0
 1. 新增对外曝光通用接口 vp_interfaceActionNotify 详见 VPinterfaceStatusNotifyDelegate.h
