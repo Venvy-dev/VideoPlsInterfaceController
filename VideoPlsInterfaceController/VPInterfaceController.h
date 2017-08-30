@@ -151,4 +151,9 @@
 - (void)closeAllInfoLayer;
 #endif
 
+/**
+ *  暂停所有业务
+ */
+- (void)pauseInterfaceView:(BOOL)isPause;
+
 @end

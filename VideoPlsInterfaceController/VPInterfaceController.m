@@ -551,7 +551,7 @@
                 [self.delegate vp_interfaceCytronItemShow:(VPIViewNodeType)itemType];
             }
         }
-    }
+    } 
 }
 
 - (void)interfaceViewChangeStatus:(NSNotification *)sender {
@@ -576,6 +576,17 @@
     else {
         return [string rangeOfString:insideString].location != NSNotFound;
     }
+}
+
+- (void)pauseInterfaceView:(BOOL)isPause {
+#ifdef VP_VIDEOOS
+    [_cytronView pasueCytronView:isPause];
+#endif
+    
+#ifdef VP_LIVEOS
+    [_liveView setHidden:isPause];
+#endif
+
 }
 
 
