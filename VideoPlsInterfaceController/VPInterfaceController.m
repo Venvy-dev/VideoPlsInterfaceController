@@ -352,6 +352,10 @@
                 NSString *url = [userInfo objectForKey:@"LinkUrl"];
                 [self.delegate vp_webLinkOpenWithURL:url];
             }
+            if([userInfo objectForKey:@"url"]) {
+                NSString *url = [userInfo objectForKey:@"url"];
+                [self.delegate vp_webLinkOpenWithURL:url];
+            }
         }
     }
 }
