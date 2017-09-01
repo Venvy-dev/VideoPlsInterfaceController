@@ -314,7 +314,7 @@
     
 #ifdef VP_LIVEOS
     if(_liveView) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewOpen:) name:@"LDSDKWebViewURL" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewOpen:) name:LDSDKMyAppLinkDidOpenNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceLoadComplete:) name:LDSDKIVAViewLoadCompleteNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceLoadError:) name:LDSDKIVAViewLoadErrorNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceActionNotify:) name:LDSDKTagActionNotification object:nil];
@@ -348,12 +348,21 @@
     if(self.delegate) {
         if([self.delegate respondsToSelector:@selector(vp_webLinkOpenWithURL:)]) {
             NSDictionary *userInfo = sender.userInfo;
-            if([userInfo objectForKey:@"LinkUrl"]) {
-                NSString *url = [userInfo objectForKey:@"LinkUrl"];
-                [self.delegate vp_webLinkOpenWithURL:url];
+            NSString *urlKey = @"";
+            
+#ifdef VP_VIDEOOS
+            if(_cytronView) {
+                urlKey = @"LinkUrl";
             }
-            if([userInfo objectForKey:@"url"]) {
-                NSString *url = [userInfo objectForKey:@"url"];
+#endif
+#ifdef VP_LIVEOS
+            if(_liveView) {
+                urlKey = @"url";
+            }
+#endif
+            
+            if([userInfo objectForKey:urlKey]) {
+                NSString *url = [userInfo objectForKey:urlKey];
                 [self.delegate vp_webLinkOpenWithURL:url];
             }
         }
