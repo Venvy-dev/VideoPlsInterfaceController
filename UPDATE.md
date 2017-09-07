@@ -1,4 +1,6 @@
 # VideoPlsInterfaceContronller
+###1.7.4
+
 ###1.7.3
 1. 修正直播webview通知通过playback的string
 
