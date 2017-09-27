@@ -104,6 +104,18 @@ pod "VideoPlsInterfaceController", :subspecs => ['VideoOS', 'LiveOS']
 
 	```
 
+#### 6.版本1.8.0新增
+* VPInterfaceController ```- (void)openGoodsList```, 用来打开子商城侧边栏,关闭点击空白区域即可
+* VPUPPubWebView , sdk通用webView需要调用生成
+* ```userDelegate``, 对应 VPUPUserLoginInterface 的接口,详见下方
+* ```- (void)closeAndRemoveFromSuperView``` 关闭并销毁webView
+* ```- (void)loadUrl:(NSString *)url``` 父类方法,加载Url
+* 新增 VPUPUserLoginInterface 和 VPUserInfo, VPUserInfo用来组装用户实例, VPUPUserLoginInterface 用来获取关于用户数据的回调; 
+* ```- (VPUserInfo *)getUserInfo``` 通过平台方得到你们的userInfo
+* ```- (void)userLogined:(VPUserInfo *) userInfo``` 通过sdk的webView登陆后会给你们对应的用户信息
+* ```- (void)notifyScreenChange:(NSString *)url``` 当需要切成竖屏时会发出这个通知,传入的url需要打开 ```VPUPPubWebView``` 并调用loadUrl
+
+
 ## Author
 
 Zard1096, mr.zardqi@gmail.com  

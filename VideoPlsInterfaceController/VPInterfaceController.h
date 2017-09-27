@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "VPInterfaceStatusNotifyDelegate.h"
+#import "VPUPUserLoginInterface.h"
+
 
 @interface VPInterfaceController : NSObject
 
@@ -31,9 +33,16 @@
 @property (readonly, nonatomic, weak) UIView *view;
 
 /**
- *
+ *  interface状态切换代理
  */
 @property (nonatomic, weak) id<VPInterfaceStatusNotifyDelegate> delegate;
+
+
+/**
+ *  获取用户信息回调
+ */
+@property (nonatomic, weak) id<VPUPUserLoginInterface> userDelegate;
+
 
 /**
  *  视频的标识(原url),可以用url作为参数 或 使用拼接ID的方式来识别(前提为与pc对接并通过);直播即对应原接口的Url
@@ -150,6 +159,15 @@
  */
 - (void)closeAllInfoLayer;
 #endif
+
+
+#ifdef VP_LIVEOS
+/**
+ *  打开子商城页面
+ */
+- (void)openGoodsList;
+#endif
+
 
 /**
  *  暂停所有业务

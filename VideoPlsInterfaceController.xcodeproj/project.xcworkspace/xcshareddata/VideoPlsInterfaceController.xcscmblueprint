@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "36F76214A320B0B883BC3E8F038DC792C1EC3B16",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "36F76214A320B0B883BC3E8F038DC792C1EC3B16" : 9223372036854775807,
+    "77BC0C420CB1F3BF8DF56060498975560892A2C3" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "06CA71CD-8E8A-403F-9BB9-B8B617640B58",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "36F76214A320B0B883BC3E8F038DC792C1EC3B16" : "VideoPlsInterfaceController\/",
+    "77BC0C420CB1F3BF8DF56060498975560892A2C3" : ".."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "VideoPlsInterfaceController",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "VideoPlsInterfaceController.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Venvy-dev\/VideoPlsInterfaceController.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "36F76214A320B0B883BC3E8F038DC792C1EC3B16"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/git.coding.net\/Zard1096\/VideoPlsWorkspace.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "77BC0C420CB1F3BF8DF56060498975560892A2C3"
+    }
+  ]
+}

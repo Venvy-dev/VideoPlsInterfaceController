@@ -1,4 +1,10 @@
 # VideoPlsInterfaceContronller
+
+###1.8.0
+1. 添加子商城入口
+2. 添加获取用户、设置用户代理
+3. 添加webView使用
+
 ###1.7.5
 
 ###1.7.4

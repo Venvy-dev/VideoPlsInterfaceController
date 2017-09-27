@@ -26,6 +26,9 @@
 #endif
 
 #import "VPInterfaceStatusNotifyDelegate.h"
+#import "VPUPUserLoginInterface.h"
+#import "VPUserInfo.h"
+#import "VPUPPubWebView.h"
 
 @interface VPInterfaceController()
 
@@ -145,6 +148,19 @@
 - (void)initLiveOSViewWithFrame:(CGRect)frame {
 #ifdef VP_LIVEOS
     _liveView = [[LDSDKIVAView alloc] initWithFrame:frame Url:_videoIdentifier VideoType:1 isLive:_live];
+    
+    //设置用户代理回调setGetUserInfoBlock
+    __weak typeof(self) weakSelf = self;
+    [_liveView setGetUserInfoBlock:^NSDictionary *(void) {
+        return [weakSelf getUserInfoDictionary];
+        
+    }];
+    
+//    [_liveView setLoginUserInfoBlock:^(NSDictionary *userInfo) {
+//        
+//        [weakSelf loginUserInfo:userInfo];
+//        
+//    }];
     
     _view = _liveView;
 #endif
@@ -267,6 +283,16 @@
 }
 #endif
 
+
+#ifdef VP_LIVEOS
+- (void)openGoodsList {
+    if(_liveView) {
+        [_liveView openGoodsList];
+    }
+}
+#endif
+
+
 - (void)updateFrame:(CGRect)frame videoRect:(CGRect)videoRect isFullScreen:(BOOL)isFullScreen {
 #ifdef VP_VIDEOOS
     if(_cytronView) {
@@ -318,6 +344,8 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceLoadComplete:) name:LDSDKIVAViewLoadCompleteNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceLoadError:) name:LDSDKIVAViewLoadErrorNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceActionNotify:) name:LDSDKTagActionNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyChangeScreen:) name:LDSDKChangeScreenNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyUserLogined:) name:LDSDKNotifyUserLoginNotification object:nil];
     }
 #endif
 }
@@ -340,9 +368,79 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKIVAViewLoadCompleteNotification object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKIVAViewLoadErrorNotification object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKTagActionNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKChangeScreenNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKNotifyUserLoginNotification object:nil];
     }
 #endif
 }
+
+#ifdef VP_LIVEOS
+
+- (NSDictionary *)getUserInfoDictionary {
+    VPUserInfo * userInfo = [self.userDelegate getUserInfo];
+    if (!userInfo) {
+        return nil;
+    }
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+    if(!userInfo.uid) {
+        return nil;
+    }
+    
+    [dictionary setObject:userInfo.uid forKey:@"uid"];
+    
+    if(userInfo.token) {
+        [dictionary setObject:userInfo.token forKey:@"token"];
+    }
+    if(userInfo.nickName) {
+        [dictionary setObject:userInfo.nickName forKey:@"nickName"];
+    }
+    if(userInfo.userName) {
+        [dictionary setObject:userInfo.userName forKey:@"userName"];
+    }
+    if(userInfo.phoneNum) {
+        [dictionary setObject:userInfo.phoneNum forKey:@"phoneNum"];
+    }
+    
+    return dictionary;
+}
+
+-(void) notifyChangeScreen: (NSNotification *)sender {
+    if (self.userDelegate) {
+        NSDictionary *dic =  sender.userInfo;
+        if (dic && [dic objectForKey:@"url"]) {
+            [self.userDelegate notifyScreenChange: [dic objectForKey:@"url"]];
+        }
+    }
+}
+
+-(void) notifyUserLogined : (NSNotification *)sender {
+    if (self.userDelegate) {
+        NSDictionary *dic = sender.userInfo;
+        if (dic) {
+            VPUserInfo *userInfo = [[VPUserInfo alloc] init];
+            if(![dic objectForKey:@"uid"]) {
+                return;
+            }
+            userInfo.uid = [dic objectForKey:@"uid"];
+            
+            if([dic objectForKey:@"nickName"]) {
+                userInfo.nickName = [dic objectForKey:@"nickName"];
+            }
+            if([dic objectForKey:@"token"]) {
+                userInfo.token = [dic objectForKey:@"token"];
+            }
+            if([dic objectForKey:@"phoneNum"]) {
+                userInfo.phoneNum = [dic objectForKey:@"phoneNum"];
+            }
+            if ([dic objectForKey: @"userName"]) {
+                userInfo.userName = [dic objectForKey:@"userName"];
+            }
+            
+            [self.userDelegate userLogined:userInfo];
+        }
+    }
+}
+#endif
 
 - (void)webViewOpen:(NSNotification *)sender {
     if(self.delegate) {
@@ -601,6 +699,5 @@
 #endif
 
 }
-
 
 @end
