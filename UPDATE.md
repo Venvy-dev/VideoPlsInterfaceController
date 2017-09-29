@@ -1,4 +1,6 @@
 # VideoPlsInterfaceContronller
+###1.8.1
+1. 修复VPUPPubWebView初始化为nil的问题
 
 ###1.8.0
 1. 添加子商城入口
