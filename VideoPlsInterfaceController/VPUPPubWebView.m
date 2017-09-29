@@ -21,7 +21,7 @@
 @implementation VPUPPubWebView
 
 
--(instancetype) initWithFrame:(CGRect) frame {
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self initWebViewParams];
@@ -29,7 +29,7 @@
     return self;
 }
 
-- (void) initWebViewParams {
+- (void)initWebViewParams {
     __weak typeof(self)  weakSelf = self;
     _bGetUserInfoBlock = ^NSDictionary *(void) {
         return [weakSelf getUserInfoDictionary];
@@ -66,7 +66,7 @@
     return dictionary;
 }
 
--(void) notifyUserLogined : (NSNotification *)sender {
+- (void)notifyUserLogined:(NSNotification *)sender {
     if (self.userDelegate) {
         NSDictionary *dic = sender.userInfo;
         if (dic) {
@@ -92,13 +92,17 @@
     }
 }
 
+- (void)loadUrl:(NSString *)url {
+    [self loadUrlString:url];
+}
+
 - (void)closeAndRemoveFromSuperView {
     [self stopAndRemoveWebView];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKNotifyUserLoginNotification object:nil];
     _bGetUserInfoBlock = nil;
 }
 
--(void) dealloc {
+-(void)dealloc {
      [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKNotifyUserLoginNotification object:nil];
     [self stopAndRemoveWebView];
     _bGetUserInfoBlock = nil;

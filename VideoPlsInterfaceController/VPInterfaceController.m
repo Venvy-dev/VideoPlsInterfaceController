@@ -662,7 +662,7 @@
                 [self.delegate vp_interfaceCytronItemShow:(VPIViewNodeType)itemType];
             }
         }
-    } 
+    }
 }
 
 - (void)interfaceViewChangeStatus:(NSNotification *)sender {
