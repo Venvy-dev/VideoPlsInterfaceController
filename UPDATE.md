@@ -1,4 +1,9 @@
 # VideoPlsInterfaceContronller
+###1.8.2
+1. 修复子商城全屏webView打开货架未关闭的问题
+2. 增加子商城竖屏webView关闭对外通知
+3. 修复子商城login登陆回调2次的错误
+
 ###1.8.1
 1. 修复VPUPPubWebView初始化为nil的问题
 

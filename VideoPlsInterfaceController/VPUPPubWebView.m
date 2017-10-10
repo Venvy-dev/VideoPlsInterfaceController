@@ -35,7 +35,7 @@
         return [weakSelf getUserInfoDictionary];
     };
     [self setGetUserInfoBlock:_bGetUserInfoBlock];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyUserLogined:) name:LDSDKNotifyUserLoginNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyUserLogined:) name:LDSDKNotifyUserLoginNotification object:nil];
 }
 
 - (NSDictionary *)getUserInfoDictionary {
@@ -66,9 +66,9 @@
     return dictionary;
 }
 
-- (void)notifyUserLogined:(NSNotification *)sender {
+- (void)userLogin:(NSDictionary *)userInfoData {
     if (self.userDelegate) {
-        NSDictionary *dic = sender.userInfo;
+        NSDictionary *dic = userInfoData;
         if (dic) {
             VPUserInfo *userInfo = [[VPUserInfo alloc] init];
             if(![dic objectForKey:@"uid"]) {
@@ -98,12 +98,18 @@
 
 - (void)closeAndRemoveFromSuperView {
     [self stopAndRemoveWebView];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKNotifyUserLoginNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKNotifyUserLoginNotification object:nil];
     _bGetUserInfoBlock = nil;
 }
 
+- (void)webViewNeedClose {
+    if([self.delegate respondsToSelector:@selector(webViewNeedClose)]) {
+        [self.delegate webViewNeedClose];
+    }
+}
+
 -(void)dealloc {
-     [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKNotifyUserLoginNotification object:nil];
+//     [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKNotifyUserLoginNotification object:nil];
     [self stopAndRemoveWebView];
     _bGetUserInfoBlock = nil;
 }

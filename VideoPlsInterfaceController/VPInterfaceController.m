@@ -700,4 +700,9 @@
 
 }
 
+
+- (void)dealloc {
+    [self stop];
+}
+
 @end
