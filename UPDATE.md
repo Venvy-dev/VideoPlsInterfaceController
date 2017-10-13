@@ -1,4 +1,10 @@
 # VideoPlsInterfaceContronller
+###1.8.3
+1. 添加StoreAPI接口
+2. 修复WebView打开可能崩溃
+3. 添加测试环境入口
+
+
 ###1.8.2
 1. 修复子商城全屏webView打开货架未关闭的问题
 2. 增加子商城竖屏webView关闭对外通知
