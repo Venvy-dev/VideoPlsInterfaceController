@@ -25,6 +25,14 @@
  */
 + (void)stopVideoPls;
 
+
+/**
+ *  切换环境
+ *  @param isDebug 是否为测试环境
+ */
++ (void)switchToDebug:(BOOL)isDebug;
+
+
 #pragma mark instance property
 /**
  *  互动层的View, 在添加view时使用 [xxx addSubview:interfaceView.view];

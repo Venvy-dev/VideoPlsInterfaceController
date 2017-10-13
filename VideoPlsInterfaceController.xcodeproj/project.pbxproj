@@ -14,6 +14,8 @@
 		06548D3F1F7B712B008BE323 /* VPUPUserLoginInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 06548D3A1F7B712B008BE323 /* VPUPUserLoginInterface.h */; };
 		06548D401F7B712B008BE323 /* VPUPPubWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06548D3B1F7B712B008BE323 /* VPUPPubWebView.m */; };
 		06548D411F7B712B008BE323 /* VPUPPubWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 06548D3C1F7B712B008BE323 /* VPUPPubWebView.h */; };
+		06B4996A1F90BF2100C4ABB8 /* VPIStoreAPIConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B499681F90BF2100C4ABB8 /* VPIStoreAPIConfig.m */; };
+		06B4996B1F90BF2100C4ABB8 /* VPIStoreAPIConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 06B499691F90BF2100C4ABB8 /* VPIStoreAPIConfig.h */; };
 		06B4D9EA1F0A23B700497726 /* VPInterfaceStatusNotifyDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 06B4D9E91F0A23B700497726 /* VPInterfaceStatusNotifyDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		06CDE3001EFF8A8D008BA1EC /* VPInterfaceController.h in Headers */ = {isa = PBXBuildFile; fileRef = 06CDE2FE1EFF8A8D008BA1EC /* VPInterfaceController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		06CDE3011EFF8A8D008BA1EC /* VPInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CDE2FF1EFF8A8D008BA1EC /* VPInterfaceController.m */; };
@@ -27,6 +29,8 @@
 		06548D3C1F7B712B008BE323 /* VPUPPubWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPUPPubWebView.h; sourceTree = "<group>"; };
 		069FAE441EFF890B0032FF53 /* VideoPlsInterfaceControllerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VideoPlsInterfaceControllerSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		069FAE481EFF890B0032FF53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		06B499681F90BF2100C4ABB8 /* VPIStoreAPIConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPIStoreAPIConfig.m; sourceTree = "<group>"; };
+		06B499691F90BF2100C4ABB8 /* VPIStoreAPIConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPIStoreAPIConfig.h; sourceTree = "<group>"; };
 		06B4D9E51F06715C00497726 /* VPConfigSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPConfigSDK.h; sourceTree = "<group>"; };
 		06B4D9E61F06715C00497726 /* VPConfigSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPConfigSDK.m; sourceTree = "<group>"; };
 		06B4D9E91F0A23B700497726 /* VPInterfaceStatusNotifyDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPInterfaceStatusNotifyDelegate.h; sourceTree = "<group>"; };
@@ -74,6 +78,8 @@
 				06548D3A1F7B712B008BE323 /* VPUPUserLoginInterface.h */,
 				06548D3B1F7B712B008BE323 /* VPUPPubWebView.m */,
 				06548D3C1F7B712B008BE323 /* VPUPPubWebView.h */,
+				06B499681F90BF2100C4ABB8 /* VPIStoreAPIConfig.m */,
+				06B499691F90BF2100C4ABB8 /* VPIStoreAPIConfig.h */,
 				069FAE481EFF890B0032FF53 /* Info.plist */,
 			);
 			name = VideoPlsInterfaceControllerSDK;
@@ -93,6 +99,7 @@
 				06548D411F7B712B008BE323 /* VPUPPubWebView.h in Headers */,
 				06548D3F1F7B712B008BE323 /* VPUPUserLoginInterface.h in Headers */,
 				06548D3E1F7B712B008BE323 /* VPUserInfo.h in Headers */,
+				06B4996B1F90BF2100C4ABB8 /* VPIStoreAPIConfig.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +172,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06B4996A1F90BF2100C4ABB8 /* VPIStoreAPIConfig.m in Sources */,
 				06403C2E1F138F37009ABAD2 /* VPConfigSDK.m in Sources */,
 				06CDE3011EFF8A8D008BA1EC /* VPInterfaceController.m in Sources */,
 				06548D401F7B712B008BE323 /* VPUPPubWebView.m in Sources */,

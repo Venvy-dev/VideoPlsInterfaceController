@@ -25,6 +25,10 @@
 #define VP_USE_LIVEOOS 1
 #endif
 
+#if defined VP_VIDEOOS || defined VP_LIVEOS
+#import <VideoPlsUtilsPlatformSDK/VideoPlsUtilsPlatformSDK.h>
+#endif
+
 #import "VPInterfaceStatusNotifyDelegate.h"
 #import "VPUPUserLoginInterface.h"
 #import "VPUserInfo.h"
@@ -71,6 +75,19 @@
     [LDSDKIVAView stopVideoPls];
 #endif
 }
+
+
++ (void)switchToDebug:(BOOL)isDebug {
+#if defined VP_VIDEOOS || defined VP_LIVEOS
+    if(isDebug) {
+        [[VPUPDebugSwitch sharedDebugSwitch] switchEnvironment:VPUPDebugStateTest];
+    }
+    else {
+        [[VPUPDebugSwitch sharedDebugSwitch] switchEnvironment:VPUPDebugStateOnline];
+    }
+#endif
+}
+
 
 #pragma mark init method
 - (instancetype)initWithFrame:(CGRect)frame
