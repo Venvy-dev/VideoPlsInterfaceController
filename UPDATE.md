@@ -1,4 +1,8 @@
 # VideoPlsInterfaceContronller
+###1.8.4
+1. 子商城界面优化
+2. WebView移除本地加载页面,改为进度条
+
 ###1.8.3
 1. 添加StoreAPI接口
 2. 修复WebView打开可能崩溃
