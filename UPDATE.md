@@ -1,4 +1,8 @@
 # VideoPlsInterfaceContronller
+###1.8.5
+1. 子商城界面优化
+2. 修复lua造成的闪退问题
+
 ###1.8.4
 1. 子商城界面优化
 2. WebView移除本地加载页面,改为进度条
