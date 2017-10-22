@@ -12,8 +12,8 @@
 @protocol VPUPUserLoginInterface <NSObject>
 
 @required
-- (VPUserInfo *)getUserInfo;
-- (void)userLogined:(VPUserInfo *)userInfo;
-- (void)notifyScreenChange:(NSString *)url;
+-(VPUserInfo *)getUserInfo;
+-(void) userLogined:(VPUserInfo *) userInfo;
+-(void) notifyScreenChange:(NSString *)url;
 
 @end
