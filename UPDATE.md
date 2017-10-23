@@ -1,4 +1,7 @@
 # VideoPlsInterfaceContronller
+###1.8.7
+1. 修复iOS11 statusBar存在造成webView留有白条
+
 ###1.8.6
 1. 子商城界面优化
 2. 子商城修复闪退问题
