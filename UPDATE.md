@@ -1,4 +1,9 @@
 # VideoPlsInterfaceContronller
+###1.8.8
+1. 修复iOS11 竖屏打开控制栏切横屏会造成WebView大小被调整
+2. 修复H5传递数据部分错误
+3. 修复货架会被重复打开错误
+
 ###1.8.7
 1. 修复iOS11 statusBar存在造成webView留有白条
 
