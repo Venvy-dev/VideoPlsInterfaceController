@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <VideoPlsInterfaceController/VPConfigSDK.h>
+#import <VideoPlsInterfaceControllerSDK/VPConfigSDK.h>
 
 @interface AppDelegate ()
 

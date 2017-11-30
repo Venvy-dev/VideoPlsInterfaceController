@@ -7,6 +7,6 @@ project 'Example/VPInterfaceControllerDemo'
 
 target 'VPInterfaceControllerDemo' do
 
-pod 'VideoPlsInterfaceController', :subspecs => ['VideoOS', 'LiveOS'], :path => '.'
+pod 'VideoPlsInterfaceController', :path => '.'
 
 end

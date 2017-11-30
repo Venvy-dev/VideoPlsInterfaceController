@@ -10,8 +10,8 @@
 #import "VPAVPlayerController.h"
 #import "VPMediaControlView.h"
 
-#import <VideoPlsInterfaceController/VPInterfaceController.h>
-#import <VideoPlsInterfaceController/VPInterfaceStatusNotifyDelegate.h>
+#import <VideoPlsInterfaceControllerSDK/VPInterfaceController.h>
+#import <VideoPlsInterfaceControllerSDK/VPInterfaceStatusNotifyDelegate.h>
 
 @interface VPSinglePlayerViewController() <VPInterfaceStatusNotifyDelegate> {
     NSString *_urlString;
@@ -313,7 +313,7 @@
 }
 
 - (void)vp_interfaceCytronItemShow:(VPIViewNodeType)itemType {
-    
+
 }
 
 - (void)vp_interfaceActionNotify:(NSDictionary *)actionDictionary {
