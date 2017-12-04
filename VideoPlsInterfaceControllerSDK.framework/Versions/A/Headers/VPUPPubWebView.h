@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#ifdef VP_LIVEOS
-//#import <VideoPlsLiveSDK/LDPubWebView.h>
-#import <VideoPlsUtilsPlatformSDK/VideoPlsUtilsPlatformSDK.h>
-#import "VPMGoodsListStorePublicWebView.h"
+#import <UIKit/UIKit.h>
+
+#ifdef VP_MALL
+
 @protocol VPUPUserLoginInterface;
 
 @protocol VPUPPubWebViewCloseDelegate <NSObject>
@@ -21,10 +21,12 @@
 
 @end
 
-@interface VPUPPubWebView : VPMGoodsListStorePublicWebView
+@interface VPUPPubWebView : UIView
 
 @property (nonatomic, weak) id<VPUPPubWebViewCloseDelegate> delegate;
 @property (nonatomic, weak) id<VPUPUserLoginInterface> userDelegate;
+
+- (instancetype)initWithFrame:(CGRect)frame;
 
 - (void)loadUrl:(NSString *)url;
 

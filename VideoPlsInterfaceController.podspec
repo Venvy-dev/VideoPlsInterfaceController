@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'VideoPlsInterfaceController'
-  s.version          = '0.0.1'
+  s.version          = '0.0.2'
   s.summary          = 'VideoPls Public Interface Controller.'
 
 # This description is used to generate tags and improve search results.
@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
   s.author           = { 'Zard1096'     => 'mr.zardqi@gmail.com',
                          'LiShaoshuai'  => 'lishaoshuai1990@gmail.com',   
                          'Bill'         => 'fuleiac@gmail.com'          }
-  s.source           = { :http => 'http://global-sdk.videojj.com/iOS_package/VideoPlsInterfaceController/VideoPlsInterfaceController_0.0.1.zip' }
+  s.source           = { :http => 'http://global-sdk.videojj.com/iOS_package/VideoPlsInterfaceController/VideoPlsInterfaceController_0.0.2.zip' }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '7.0'
@@ -40,7 +40,7 @@ Pod::Spec.new do |s|
   s.vendored_frameworks = 'VideoPlsInterfaceControllerSDK.framework'
 
   s.xcconfig = { 
-      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VP_MALL=1,VP_LIVEOS=1,VP_VIDEOOS=1'
+      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VP_MALL=1'
     }
   # s.resource_bundles = {
   #   'VideoPlsInterfaceViewSDK' => ['VideoPlsInterfaceViewSDK/Assets/*.png']

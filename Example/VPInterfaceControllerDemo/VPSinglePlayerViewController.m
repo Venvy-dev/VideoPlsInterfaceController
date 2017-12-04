@@ -13,6 +13,9 @@
 #import <VideoPlsInterfaceControllerSDK/VPInterfaceController.h>
 #import <VideoPlsInterfaceControllerSDK/VPInterfaceStatusNotifyDelegate.h>
 
+#import <objc/runtime.h>
+#import <objc/message.h>
+
 @interface VPSinglePlayerViewController() <VPInterfaceStatusNotifyDelegate> {
     NSString *_urlString;
     NSString *_platformUserID;
@@ -117,13 +120,9 @@
     _interfaceController = [[VPInterfaceController alloc] initWithFrame:self.view.bounds videoIdentifier:_urlString isLive:_isLive];
     _interfaceController.delegate = self;
     if(!_isLive) {
-#ifdef VP_VIDEOOS
-        [_interfaceController setVideoTitle:@"Test"];
-#endif
+        ((void(*)(id,SEL,id))objc_msgSend)(_interfaceController, NSSelectorFromString(@"setVideoTitle:"), @"Test");
     } else {
-#ifdef VP_LIVEOS
-        [_interfaceController setPlatformUserID:_platformUserID];
-#endif
+        ((void(*)(id,SEL,id))objc_msgSend)(_interfaceController, NSSelectorFromString(@"setPlatformUserID:"), _platformUserID);
     }
     [_interfaceController startLoading];
 }
@@ -131,7 +130,9 @@
 - (void)refreshInterfaceContainer {
     NSTimeInterval playbackTime = _player.currentPlaybackTime;
     //需要更新的时间为毫秒数
+#ifdef VP_VIDEOOS
     [_interfaceController updateCurrentPlaybackTime:playbackTime * 1000];
+#endif
 }
 
 - (void)dismissPlayerViewController {
@@ -312,9 +313,9 @@
     
 }
 
-- (void)vp_interfaceCytronItemShow:(VPIViewNodeType)itemType {
-
-}
+//- (void)vp_interfaceCytronItemShow:(VPIViewNodeType)itemType {
+//
+//}
 
 - (void)vp_interfaceActionNotify:(NSDictionary *)actionDictionary {
     NSLog(@"%@", actionDictionary);
