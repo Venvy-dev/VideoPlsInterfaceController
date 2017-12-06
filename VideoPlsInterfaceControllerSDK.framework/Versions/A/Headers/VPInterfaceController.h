@@ -11,6 +11,30 @@
 #import "VPInterfaceStatusNotifyDelegate.h"
 #import "VPUPUserLoginInterface.h"
 
+@class VPInterfaceController;
+
+typedef NS_ENUM(NSInteger, VPInterfaceControllerType) {
+    VPInterfaceControllerTypeVideoOS,                      //点播
+    VPInterfaceControllerTypeLiveOS,                       //直播
+    VPInterfaceControllerTypeMall                          //子商城
+};
+
+@interface VPInterfaceControllerFactory : NSObject
+
+/**
+ *  创建VPInterfaceController
+ *  param为需要传递的参数,keys为@"identifier"，@"platformUserID",@"videoTitle"
+ *  VPInterfaceControllerTypeVideoOS param必须传递@"identifier"，可选@"videoTitle"
+ *  VPInterfaceControllerTypeLiveOS param必须传递@"identifier"，可选@"platformUserID"
+ *  VPInterfaceControllerTypeMall param必须传递@"identifier"，@"platformUserID"
+ */
++ (VPInterfaceController*)createInterfaceControllerWithFrame:(CGRect)frame
+                                             param:(NSDictionary*)param
+                                              type:(VPInterfaceControllerType)type;
+
+@end
+
+
 
 @interface VPInterfaceController : NSObject
 
@@ -31,7 +55,6 @@
  *  @param isDebug 是否为测试环境
  */
 + (void)switchToDebug:(BOOL)isDebug;
-
 
 #pragma mark instance property
 /**
@@ -62,21 +85,22 @@
  */
 @property (readonly, nonatomic, assign, getter = isLive) BOOL live;
 
-#ifdef VP_VIDEOOS
-#pragma mark property for VideoOS
-/**
- *  视频的标题,如果没传入且为第一次播放(在所有端中),将会默认设置生成视频标题为:default(可选,标题在控制台统计中可见与修改)
- */
-@property (readonly, nonatomic) NSString *videoTitle;
-#endif
-
-#ifdef VP_LIVEOS
-#pragma mark property for LiveOS
-@property (readonly, nonatomic) NSString *platformUserID;
-#endif
+@property (readonly, nonatomic) VPInterfaceControllerType type;
 
 #pragma mark instance method
 #pragma mark init method
+/**
+ *  创建VPInterfaceController
+ *  param为需要传递的参数,keys为@"identifier"，@"platformUserID",@"videoTitle"
+ *  VPInterfaceControllerTypeVideoOS param必须传递@"identifier"，可选@"videoTitle"
+ *  VPInterfaceControllerTypeLiveOS param必须传递@"identifier"，可选@"platformUserID"
+ *  VPInterfaceControllerTypeMall param必须传递@"identifier"，@"platformUserID"
+ *  不能实例化，请用子类创建对象
+ */
+- (instancetype)initWithFrame:(CGRect)frame
+                        param:(NSDictionary *)param
+                         type:(VPInterfaceControllerType)type;
+
 /**
  *  初始化InterfaceView
  *
@@ -84,26 +108,12 @@
  *  @param identifier 对应videoIdentifier
  *  @param isLive 是否为直播
  *  @return InterfaceView,注意为NSObject,需要使用 .view 来获取视图层
+ *  已经废弃，请用VPInterfaceControllerFactory创建对象
  */
 - (instancetype)initWithFrame:(CGRect)frame
               videoIdentifier:(NSString *)identifier
-                       isLive:(BOOL)isLive;
+                       isLive:(BOOL)isLive NS_DEPRECATED_IOS(2.0,2.0);
 
-#ifdef VP_VIDEOOS
-#pragma mark VideoOS init
-//默认isLive为No
-- (instancetype)initVideoOSViewWithFrame:(CGRect)frame
-                         videoIdentifier:(NSString *)identifier
-                              videoTitle:(NSString *)videoTitle;
-#endif
-
-#ifdef VP_LIVEOS
-#pragma mark LiveOS init
-//默认isLive为YES
-- (instancetype)initLiveOSViewWithFrame:(CGRect)frame
-                        videoIdentifier:(NSString *)identifier
-                         platformUserID:(NSString *)platformUserID;
-#endif
 
 #pragma mark set method
 //参数的设置方法,仅在startLoading之前能够设置
@@ -115,23 +125,12 @@
  */
 - (void)setVideoType:(NSInteger)videoType;
 
-#ifdef VP_VIDEOOS
-#pragma mark VideoOS set method
-- (void)setVideoTitle:(NSString *)videoTitle;
-#endif
-#ifdef VP_LIVEOS
-
-#pragma mark LiveOS set method
-- (void)setPlatformUserID:(NSString *)platformUserID;
-#endif
-
 
 #pragma mark Interface loading and control
 /**
  *  开始加载互动层,无法再设置属性
  */
 - (void)startLoading;
-
 
 /**
  *  停止并销毁互动层所有内容
@@ -150,47 +149,11 @@
  */
 - (void)updateFrame:(CGRect)frame videoRect:(CGRect)videoRect isFullScreen:(BOOL)isFullScreen;
 
-
-#ifdef VP_VIDEOOS
-/**
- *  设置当前播放时间,需设置一个计时器来持续调用
- *  根据热点出现的精准度需求可在`0.1~1s`之间选择
- *  请传入当前正在播放进度
- *  直播无需调用此方法
- *
- *  @param milliSecond 当前播放时间(单位:毫秒)
- */
-- (void)updateCurrentPlaybackTime:(NSTimeInterval)milliSecond;
-
-/**
- *  关闭所有信息层(点播专有)
- */
-- (void)closeAllInfoLayer;
-#endif
-
-
-#ifdef VP_LIVEOS
-/**
- *  打开子商城页面
- */
-- (void)openGoodsList;
-#endif
-
-#ifdef VP_LIVEOS
-
-- (BOOL)videoAdsIsPlaying;
-
-/**
- *  暂停中插，优先级不如暂停所有业务高
- *  即，当暂停所有业务时，调起该API无作用
-*/
-- (void)pauseVideoAd:(BOOL)isPause;
-
-#endif
-
 /**
  *  暂停所有业务
  */
 - (void)pauseInterfaceView:(BOOL)isPause;
+
+- (BOOL)isString:(NSString *)string containsString:(NSString *)insideString;
 
 @end
