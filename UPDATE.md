@@ -1,4 +1,7 @@
 # VideoPlsInterfaceContronller
+###1.8.10
+1. 可能修复网络请求问题
+
 ###1.8.9
 1. 修复直播crash
 2. 修复iOS 11 scrollView 挤压内容
