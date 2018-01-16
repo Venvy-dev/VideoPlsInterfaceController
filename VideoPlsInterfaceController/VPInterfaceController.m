@@ -271,6 +271,12 @@
 - (void)startLoading {
     NSAssert(_view, @"使用错误的init方法, view不存在");
     
+    if(!_canSet) {
+        return;
+    }
+    
+    _canSet = NO;
+    
     [self registerStatusNotification];
 #ifdef VP_VIDEOOS
     if(_cytronView) {
@@ -309,6 +315,17 @@
 }
 #endif
 
+#ifdef VP_LIVEOS
+
+- (BOOL)videoAdsIsPlaying {
+    return [_liveView videoAdsIsPlaying];
+}
+
+- (void)pauseVideoAd:(BOOL)isPause {
+    [_liveView pauseVideoAd:isPause];
+}
+
+#endif
 
 - (void)updateFrame:(CGRect)frame videoRect:(CGRect)videoRect isFullScreen:(BOOL)isFullScreen {
 #ifdef VP_VIDEOOS
@@ -325,6 +342,12 @@
 }
 
 - (void)stop {
+    
+    if(_canSet) {
+        return;
+    }
+    
+    _canSet = YES;
     
 #ifdef VP_VIDEOOS
     if(_cytronView) {
@@ -349,7 +372,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewOpen:) name:VPCytronMyAppWebLinkDidOpenNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceLoadComplete:) name:VPCytronLoadCompleteNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceLoadError:) name:VPCytronViewLoadErrorNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceItemShow:) name:VPCytronViewNodeStateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceItemShow:) name:VPCytronViewNodeShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceViewChangeStatus:) name:VPCytronViewNodeStateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceActionNotify:) name:VPCytronActionNotification object:nil];
     }
@@ -360,9 +383,12 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewOpen:) name:LDSDKMyAppLinkDidOpenNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceLoadComplete:) name:LDSDKIVAViewLoadCompleteNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceLoadError:) name:LDSDKIVAViewLoadErrorNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceViewChangeStatus:) name:LDSDKViewNodeStateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceActionNotify:) name:LDSDKTagActionNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyChangeScreen:) name:LDSDKChangeScreenNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyUserLogined:) name:LDSDKNotifyUserLoginNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceVideoAdBackNotify:) name:LDSDKVideoAdsBackNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyChangeScreen:) name:VPUPGoodsListStoreOpenPortraitWebViewNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyUserLogined:) name:VPUPGoodsListStoreNotifyUserLoginNotification object:nil];
     }
 #endif
 }
@@ -373,7 +399,7 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:VPCytronMyAppWebLinkDidOpenNotification object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:VPCytronLoadCompleteNotification object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:VPCytronViewLoadErrorNotification object:nil];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:VPCytronViewNodeStateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:VPCytronViewNodeShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:VPCytronViewNodeStateNotification object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:VPCytronActionNotification object:nil];
     }
@@ -384,9 +410,12 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKMyAppLinkDidOpenNotification object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKIVAViewLoadCompleteNotification object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKIVAViewLoadErrorNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKViewNodeStateNotification object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKTagActionNotification object:nil];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKChangeScreenNotification object:nil];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKNotifyUserLoginNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKVideoAdsBackNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:VPUPGoodsListStoreOpenPortraitWebViewNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:VPUPGoodsListStoreNotifyUserLoginNotification object:nil];
     }
 #endif
 }
@@ -421,7 +450,7 @@
     return dictionary;
 }
 
--(void) notifyChangeScreen: (NSNotification *)sender {
+-(void) notifyChangeScreen:(NSNotification *)sender {
     if (self.userDelegate) {
         NSDictionary *dic =  sender.userInfo;
         if (dic && [dic objectForKey:@"url"]) {
@@ -682,19 +711,44 @@
     }
 }
 
+#endif
+
+
 - (void)interfaceViewChangeStatus:(NSNotification *)sender {
     if(self.delegate) {
         if([self.delegate respondsToSelector:@selector(vp_interfaceViewChangeStatus:)]) {
             NSDictionary *userInfo = sender.userInfo;
+            NSInteger itemStatus = -1;
+#ifdef VP_VIDEOOS
             if([userInfo objectForKey:@"CytronNodeState"]) {
-                VPCytronViewNodeState itemStatus = [[userInfo objectForKey:@"CytronNodeState"] integerValue];
-
-                [self.delegate vp_interfaceViewChangeStatus:(VPIViewNodeState)itemStatus];
+                if (_cytronView) {
+                    itemStatus = [[userInfo objectForKey:@"CytronNodeState"] integerValue];
+                }
             }
+#endif
+            
+#ifdef VP_LIVEOS
+            if([userInfo objectForKey:@"LDNodeState"]) {
+                if (_liveView) {
+                    itemStatus = [[userInfo objectForKey:@"LDNodeState"] integerValue];
+                }
+            }
+            
+#endif
+            if (itemStatus == -1) {
+                return;
+            }
+            [self.delegate vp_interfaceViewChangeStatus:(VPIViewNodeState)itemStatus];
         }
     }
 }
 
+#ifdef VP_LIVEOS
+- (void)interfaceVideoAdBackNotify:(NSNotification *)sender {
+    if ([self.delegate respondsToSelector:@selector(vp_interfaceVideoAdBack)]) {
+        [self.delegate vp_interfaceVideoAdBack];
+    }
+}
 #endif
 
 - (BOOL)isString:(NSString *)string containsString:(NSString *)insideString {
@@ -712,11 +766,10 @@
 #endif
     
 #ifdef VP_LIVEOS
-    [_liveView setHidden:isPause];
+    [_liveView pauseIvaView:isPause];
 #endif
 
 }
-
 
 - (void)dealloc {
     [self stop];

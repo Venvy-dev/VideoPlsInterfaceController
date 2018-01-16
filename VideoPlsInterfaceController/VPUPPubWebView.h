@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #ifdef VP_LIVEOS
-#import <VideoPlsLiveSDK/LDPubWebView.h>
+#import <VideoPlsUtilsPlatformSDK/VideoPlsUtilsPlatformSDK.h>
 @protocol VPUPUserLoginInterface;
 
 @protocol VPUPPubWebViewCloseDelegate <NSObject>
@@ -19,7 +19,7 @@
 
 @end
 
-@interface VPUPPubWebView : LDPubWebView
+@interface VPUPPubWebView : VPUPGoodsListStorePublicWebView
 
 @property (nonatomic, weak) id<VPUPPubWebViewCloseDelegate> delegate;
 @property (nonatomic, weak) id<VPUPUserLoginInterface> userDelegate;

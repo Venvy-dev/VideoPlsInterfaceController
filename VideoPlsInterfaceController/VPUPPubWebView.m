@@ -10,7 +10,6 @@
 #ifdef VP_LIVEOS
 #import "VPUPPubWebView.h"
 #import "VPUPUserLoginInterface.h"
-#import <VideoPlsLiveSDK/LDIVAPlayback.h>
 
 @interface VPUPPubWebView()
 
@@ -35,7 +34,6 @@
         return [weakSelf getUserInfoDictionary];
     };
     [self setGetUserInfoBlock:_bGetUserInfoBlock];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyUserLogined:) name:LDSDKNotifyUserLoginNotification object:nil];
 }
 
 - (NSDictionary *)getUserInfoDictionary {
@@ -98,7 +96,6 @@
 
 - (void)closeAndRemoveFromSuperView {
     [self stopAndRemoveWebView];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKNotifyUserLoginNotification object:nil];
     _bGetUserInfoBlock = nil;
 }
 
@@ -109,7 +106,6 @@
 }
 
 -(void)dealloc {
-//     [[NSNotificationCenter defaultCenter] removeObserver:self name:LDSDKNotifyUserLoginNotification object:nil];
     [self stopAndRemoveWebView];
     _bGetUserInfoBlock = nil;
 }

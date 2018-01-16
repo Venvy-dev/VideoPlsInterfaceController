@@ -94,7 +94,7 @@ typedef NS_ENUM(NSUInteger, VPIActionType) {
  */
 - (void)vp_interfaceActionNotify:(NSDictionary *)actionDictionary;
 
-#ifdef VP_VIDEOOS
+
 
 /**
  *  交互状态枚举
@@ -108,7 +108,9 @@ typedef NS_ENUM(NSInteger, VPIViewNodeState) {
     VPIViewWebViewClose,                       //网页关闭,可以继续播放
     
     VPIVideoClipShow,                          // 视频中插显示，暂停视频
-    VPIVideoClipFinish                         // 视频中插结束，继续播放
+    VPIVideoClipFinish,                        // 视频中插结束，继续播放
+    VPIVideoClipPlay,                          // 视频中插播放（包括开始播放，暂停之后的播放）
+    VPIVideoClipPause                          //视频中插暂停(包括平台方调用导致暂停、退出／关闭中插导致暂停)
 };
 
 /**
@@ -117,7 +119,7 @@ typedef NS_ENUM(NSInteger, VPIViewNodeState) {
  *  @param changeStatus 互动内容触发,对应触发内容见 VPCytronViewNodeState
  */
 - (void)vp_interfaceViewChangeStatus:(VPIViewNodeState)changeStatus;
-
+#ifdef VP_VIDEOOS
 /**
  *  云链/云窗枚举
  */
@@ -132,6 +134,15 @@ typedef NS_ENUM(NSInteger, VPIViewNodeType) {
  */
 - (void)vp_interfaceCytronItemShow:(VPIViewNodeType)itemType;
 
+#endif
+
+#ifdef VP_LIVEOS
+
+/**
+ *  播放中插时，点击左上角返回按钮事件，交由平台方处理
+ *  暂时只有直播有返回按钮
+ */
+- (void)vp_interfaceVideoAdBack;
 #endif
 
 @end

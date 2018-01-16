@@ -8,7 +8,7 @@
 
 #import "VPIStoreAPIConfig.h"
 #ifdef VP_LIVEOS
-#import <VideoPlsLiveSDK/LDStoreAPIURLConfig.h>
+#import <VideoPlsUtilsPlatformSDK/VideoPlsUtilsPlatformSDK.h>
 #endif
 
 
@@ -16,7 +16,7 @@
 
 + (NSString *)getStoreAPIURL:(VPIStoreAPIType)type {
 #ifdef VP_LIVEOS
-    return [LDStoreAPIURLConfig getStoreAPIURL:(LDStoreURLType)type];
+    return [VPUPGoodsListAPIConfig getGoodListURL:(VPUPGoodListURLType)type];
 #endif
     
     return nil;

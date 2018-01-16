@@ -176,6 +176,17 @@
 - (void)openGoodsList;
 #endif
 
+#ifdef VP_LIVEOS
+
+- (BOOL)videoAdsIsPlaying;
+
+/**
+ *  暂停中插，优先级不如暂停所有业务高
+ *  即，当暂停所有业务时，调起该API无作用
+*/
+- (void)pauseVideoAd:(BOOL)isPause;
+
+#endif
 
 /**
  *  暂停所有业务

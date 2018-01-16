@@ -28,15 +28,17 @@
 + (void)setAppKey:(NSString *)appKey
        platformID:(NSString *)platformID
           useWebP:(BOOL)webP {
-#ifdef VP_VIDEOOS
-    [VideoPlsCytronSDK setAppKey:appKey];
-    [VideoPlsCytronSDK setEnableWebP:webP];
-#endif
     
 #ifdef VP_LIVEOS
     [LiveIVASDK setPlatformId:platformID];
     [LiveIVASDK setEnableWebP:webP];
 #endif
+
+#ifdef VP_VIDEOOS
+    [VideoPlsCytronSDK setAppKey:appKey];
+    [VideoPlsCytronSDK setEnableWebP:webP];
+#endif
+
 }
 
 + (void)setIDFA:(NSString *)IDFA {
