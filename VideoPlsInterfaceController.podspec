@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'VideoPlsInterfaceController'
-  s.version          = '1.8.10'
+  s.version          = '1.8.11'
   s.summary          = 'VideoPls Public Interface Controller.'
 
 # This description is used to generate tags and improve search results.
@@ -43,7 +43,7 @@ Pod::Spec.new do |s|
       'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VP_VIDEOOS=1'
     }
     video.dependency 'VideoPlsInterfaceController/Core'
-    video.dependency 'VideoPlsCytron', '1.8.10'
+    video.dependency 'VideoPlsCytron', '1.8.11'
   end
 
   s.subspec 'LiveOS' do |live|
@@ -51,7 +51,7 @@ Pod::Spec.new do |s|
       'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VP_LIVEOS=1'
     }
     live.dependency 'VideoPlsInterfaceController/Core'
-    live.dependency 'VideoPlsLive', '1.8.10'
+    live.dependency 'VideoPlsLive', '1.8.11'
   end
 
   

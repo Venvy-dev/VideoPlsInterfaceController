@@ -1,4 +1,7 @@
 # VideoPlsInterfaceContronller
+###1.8.11
+1. 修复子商城无法点击
+
 ###1.8.10
 1. 可能修复网络请求问题
 
