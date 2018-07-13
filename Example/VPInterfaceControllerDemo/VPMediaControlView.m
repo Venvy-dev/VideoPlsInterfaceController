@@ -7,6 +7,13 @@
 //
 
 #import "VPMediaControlView.h"
+#import "VPMediaMoreButtonView.h"
+
+@interface VPMediaControlView ()
+
+@property (nonatomic, strong) VPMediaMoreButtonView *moreButtonView;
+
+@end
 
 @implementation VPMediaControlView {
     __weak VPAVPlayerController *_player;
@@ -19,9 +26,12 @@
     
     BOOL _isShowed;
     
+    BOOL _isBoardOpened;
+    
     NSTimer *_refreshTimer;
     
     void (^backButtonActionBlock)(void);
+    void (^switchActionBlock)(BOOL);
 
 }
 
@@ -51,6 +61,7 @@
 
 - (void)setAVPlayerController:(VPAVPlayerController *)player {
     _player = player;
+    [self registerPlayerNotification];
 }
 
 - (void)setBackButtonTappedToDo:(void (^)(void))excuteBlock {
@@ -59,10 +70,27 @@
     }
 }
 
+- (void)setSwitchActionToDo:(void (^)(BOOL))actionBlock {
+    if(actionBlock) {
+        switchActionBlock = actionBlock;
+    }
+}
+
 - (void)initMediaControlView {
     
-    [self registerPlayerNotification];
+    
     [self registerApplicationNotification];
+}
+
+- (void)initMoreButtonView {
+    if (!_moreButtonView) {
+        _moreButtonView = [VPMediaMoreButtonView mediaMoreButtonWithNib];
+        _moreButtonView.frame = self.bounds;
+        _moreButtonView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _moreButtonView.hidden = YES;
+        [self addSubview:_moreButtonView];
+    }
+    [_moreButtonView setHidden:NO];
 }
 
 - (void)showControlView {
@@ -71,18 +99,24 @@
     }
     
     _isShowed = YES;
+    _isBoardOpened = YES;
     
     [self resumeTimer];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideControlView) object:nil];
     
     _topControlView.alpha = 0;
     _bottomControlView.alpha = 0;
+    _rightControlView.alpha = 0;
     [_topControlView setHidden:NO];
     [_bottomControlView setHidden:NO];
+    [_rightControlView setHidden:NO];
     [UIView animateWithDuration:0.1f animations:^{
         _topControlView.alpha = 1;
         _bottomControlView.alpha = 1;
+        _rightControlView.alpha = 1;
     } completion:^(BOOL finished) {
         [self performSelector:@selector(hideControlView) withObject:nil afterDelay:5.0f];
     }];
@@ -94,15 +128,18 @@
         return;
     }
     
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideControlView) object:nil];
 
     [UIView animateWithDuration:0.1f animations:^{
         _topControlView.alpha = 0;
         _bottomControlView.alpha = 0;
+        _rightControlView.alpha = 0;
     } completion:^(BOOL finished) {
         [_topControlView setHidden:YES];
         [_bottomControlView setHidden:YES];
-        
+        [_rightControlView setHidden:YES];
         [self pauseTimer];
         
         _isShowed = NO;
@@ -172,6 +209,19 @@
     }
 }
 
+- (IBAction)boardButtonTapped:(id)sender {
+    _isBoardOpened = !_isBoardOpened;
+    if (_isBoardOpened) {
+        [_boardButton setImage:[UIImage imageNamed:@"board_opened_button.png"] forState:UIControlStateNormal];
+    }
+    else {
+        [_boardButton setImage:[UIImage imageNamed:@"board_open_button.png"] forState:UIControlStateNormal];
+    }
+    if(switchActionBlock) {
+        switchActionBlock(_isBoardOpened);
+    }
+}
+
 #pragma mark slider action
 - (IBAction)playbackSliderTouchDown:(id)sender {
     _isSeeking = YES;
@@ -200,6 +250,13 @@
     double value = [_player currentPlaybackTime];
     [_playbackSlider setValue:value animated:NO];
 }
+
+- (IBAction)moreButtonDidClicked:(id)sender {
+    
+    [self initMoreButtonView];
+    
+}
+
 
 //点击穿透
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
@@ -240,7 +297,12 @@
 - (void)playerIsPreparedToPlay:(NSNotification *)notification {
     
     NSTimeInterval duration = [_player duration];
-    [_playbackSlider setMaximumValue:duration];
+    if(!isnan(duration)) {
+        [_playbackSlider setMaximumValue:duration];
+    }
+    else {
+        [_playbackSlider setMaximumValue:0];
+    }
     
     _playbackSlider.enabled = YES;
     

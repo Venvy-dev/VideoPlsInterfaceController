@@ -18,6 +18,8 @@
 		069D54451F04DC6E001E5324 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 069D54441F04DC6E001E5324 /* Assets.xcassets */; };
 		069D54481F04DC6E001E5324 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 069D54461F04DC6E001E5324 /* LaunchScreen.storyboard */; };
 		8844DF7302866437A1DEC1F9 /* libPods-VPInterfaceControllerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C6009F1EF01AC68198F90DB /* libPods-VPInterfaceControllerDemo.a */; };
+		D0E385F51FFCBDD7007331F1 /* VPMediaMoreButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E385F21FFCBDD7007331F1 /* VPMediaMoreButtonView.m */; };
+		D0E385F61FFCBDD7007331F1 /* VPMediaMoreButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0E385F31FFCBDD7007331F1 /* VPMediaMoreButtonView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,9 @@
 		26381285A7C358E7AC3987EC /* Pods-VPInterfaceControllerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VPInterfaceControllerDemo.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-VPInterfaceControllerDemo/Pods-VPInterfaceControllerDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		7C6009F1EF01AC68198F90DB /* libPods-VPInterfaceControllerDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VPInterfaceControllerDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B30CD242A29CD4A10D7E120A /* Pods-VPInterfaceViewDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VPInterfaceViewDemo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-VPInterfaceViewDemo/Pods-VPInterfaceViewDemo.release.xcconfig"; sourceTree = "<group>"; };
+		D0E385F21FFCBDD7007331F1 /* VPMediaMoreButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPMediaMoreButtonView.m; sourceTree = "<group>"; };
+		D0E385F31FFCBDD7007331F1 /* VPMediaMoreButtonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VPMediaMoreButtonView.xib; sourceTree = "<group>"; };
+		D0E385F41FFCBDD7007331F1 /* VPMediaMoreButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPMediaMoreButtonView.h; sourceTree = "<group>"; };
 		F5D5F0ACF62048D7E569DF7F /* Pods-VPInterfaceControllerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VPInterfaceControllerDemo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-VPInterfaceControllerDemo/Pods-VPInterfaceControllerDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,6 +66,9 @@
 		068965391F15F1310054736C /* VPAVPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				D0E385F41FFCBDD7007331F1 /* VPMediaMoreButtonView.h */,
+				D0E385F21FFCBDD7007331F1 /* VPMediaMoreButtonView.m */,
+				D0E385F31FFCBDD7007331F1 /* VPMediaMoreButtonView.xib */,
 				0689653A1F15F2BB0054736C /* VPMediaControlView.h */,
 				0689653B1F15F2BB0054736C /* VPMediaControlView.m */,
 				0689653D1F15F56E0054736C /* VPMediaControlView.xib */,
@@ -201,6 +209,7 @@
 				0689653E1F15F56E0054736C /* VPMediaControlView.xib in Resources */,
 				069D54451F04DC6E001E5324 /* Assets.xcassets in Resources */,
 				069D54431F04DC6D001E5324 /* Main.storyboard in Resources */,
+				D0E385F61FFCBDD7007331F1 /* VPMediaMoreButtonView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +276,7 @@
 				069D543D1F04DC6D001E5324 /* AppDelegate.m in Sources */,
 				0689653C1F15F2BB0054736C /* VPMediaControlView.m in Sources */,
 				069D543A1F04DC6D001E5324 /* main.m in Sources */,
+				D0E385F51FFCBDD7007331F1 /* VPMediaMoreButtonView.m in Sources */,
 				068965411F1607180054736C /* VPSinglePlayerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

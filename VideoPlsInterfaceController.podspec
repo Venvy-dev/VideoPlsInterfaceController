@@ -35,7 +35,7 @@ Pod::Spec.new do |s|
   s.libraries = 'z', 'sqlite3'
   s.frameworks = 'AVFoundation', 'CoreTelephony', 'SystemConfiguration', 'ImageIO', 'MobileCoreServices', "WebKit", 'CoreMedia', 'Accelerate'
   s.dependency 'AFNetworking', '~>3.0'
-  s.dependency 'SDWebImage', '~>4.0'
+
   s.dependency 'VPLuaViewSDK'
   s.vendored_frameworks = 'VideoPlsInterfaceControllerSDK.framework'
 

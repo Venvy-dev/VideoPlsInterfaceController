@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9iQ-TP-ml9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9iQ-TP-ml9">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -32,7 +33,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nJX-0z-W84">
-                                <rect key="frame" x="57" y="172" width="80" height="40"/>
+                                <rect key="frame" x="12.5" y="172" width="80" height="40"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="GP7-5T-SSa"/>
@@ -56,7 +57,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FVA-vY-b0F">
-                                <rect key="frame" x="237" y="172" width="80" height="40"/>
+                                <rect key="frame" x="102.5" y="172" width="80" height="40"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="KnD-jm-xp0"/>
@@ -67,6 +68,34 @@
                                 </state>
                                 <connections>
                                     <action selector="liveButtonDidClick:" destination="9iQ-TP-ml9" eventType="touchUpInside" id="F9q-Cn-nMj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oqh-Rw-2me">
+                                <rect key="frame" x="192.5" y="172" width="80" height="40"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="bRx-GC-qEc"/>
+                                    <constraint firstAttribute="width" constant="80" id="gw5-GS-oQd"/>
+                                </constraints>
+                                <state key="normal" title="子商城">
+                                    <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="mallButtonDidClick:" destination="9iQ-TP-ml9" eventType="touchUpInside" id="Fgo-iE-8EW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O0B-J1-nms">
+                                <rect key="frame" x="282.5" y="172" width="80" height="40"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="BBW-72-tgv"/>
+                                    <constraint firstAttribute="width" constant="80" id="ho1-No-ZRY"/>
+                                </constraints>
+                                <state key="normal" title="互娱">
+                                    <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="enjoyButtonDidClick:" destination="9iQ-TP-ml9" eventType="touchUpInside" id="XRi-25-b6O"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="faS-i5-AmR">
@@ -110,17 +139,21 @@
                             <constraint firstItem="faS-i5-AmR" firstAttribute="centerX" secondItem="sFO-6v-ebG" secondAttribute="centerX" id="C9r-Ka-aZq"/>
                             <constraint firstItem="GJm-BZ-8LW" firstAttribute="centerX" secondItem="sFO-6v-ebG" secondAttribute="centerX" id="FTH-3b-O5L"/>
                             <constraint firstItem="D8h-bP-bH5" firstAttribute="top" secondItem="6b0-cI-lLH" secondAttribute="bottom" constant="40" id="LML-Cp-HsV"/>
+                            <constraint firstItem="O0B-J1-nms" firstAttribute="leading" secondItem="sFO-6v-ebG" secondAttribute="centerX" constant="95" id="LO2-fA-Rqg"/>
                             <constraint firstItem="GJm-BZ-8LW" firstAttribute="top" secondItem="D8h-bP-bH5" secondAttribute="bottom" constant="2" id="QJY-7a-k0H"/>
                             <constraint firstItem="Ank-gz-KdF" firstAttribute="centerX" secondItem="sFO-6v-ebG" secondAttribute="centerX" id="VCB-JQ-S6z"/>
-                            <constraint firstItem="nJX-0z-W84" firstAttribute="centerX" secondItem="sFO-6v-ebG" secondAttribute="centerX" constant="-90" id="VsV-TW-Un1"/>
+                            <constraint firstItem="nJX-0z-W84" firstAttribute="trailing" secondItem="sFO-6v-ebG" secondAttribute="centerX" constant="-95" id="VsV-TW-Un1"/>
+                            <constraint firstItem="oqh-Rw-2me" firstAttribute="top" secondItem="D8h-bP-bH5" secondAttribute="bottom" constant="80" id="X8w-hi-yrZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="D8h-bP-bH5" secondAttribute="trailing" constant="30" id="ZlI-JJ-MSA"/>
-                            <constraint firstItem="FVA-vY-b0F" firstAttribute="centerX" secondItem="sFO-6v-ebG" secondAttribute="centerX" constant="90" id="fjx-56-UBx"/>
+                            <constraint firstItem="oqh-Rw-2me" firstAttribute="leading" secondItem="sFO-6v-ebG" secondAttribute="centerX" constant="5" id="aDX-ef-VOb"/>
+                            <constraint firstItem="FVA-vY-b0F" firstAttribute="trailing" secondItem="sFO-6v-ebG" secondAttribute="centerX" constant="-5" id="fjx-56-UBx"/>
                             <constraint firstItem="D8h-bP-bH5" firstAttribute="top" secondItem="Ank-gz-KdF" secondAttribute="bottom" constant="5" id="i51-q5-ocZ"/>
                             <constraint firstItem="faS-i5-AmR" firstAttribute="top" secondItem="fXQ-Cg-WDq" secondAttribute="bottom" constant="100" id="iXB-az-50D"/>
                             <constraint firstItem="nJX-0z-W84" firstAttribute="top" secondItem="D8h-bP-bH5" secondAttribute="bottom" constant="80" id="lb7-FS-fuR"/>
                             <constraint firstItem="D8h-bP-bH5" firstAttribute="leading" secondItem="sFO-6v-ebG" secondAttribute="leadingMargin" constant="30" id="mn7-ZZ-POd"/>
                             <constraint firstItem="fXQ-Cg-WDq" firstAttribute="centerX" secondItem="sFO-6v-ebG" secondAttribute="centerX" id="p0u-5i-Q7Y"/>
                             <constraint firstItem="FVA-vY-b0F" firstAttribute="top" secondItem="D8h-bP-bH5" secondAttribute="bottom" constant="80" id="s5t-AC-lek"/>
+                            <constraint firstItem="O0B-J1-nms" firstAttribute="top" secondItem="D8h-bP-bH5" secondAttribute="bottom" constant="80" id="sBg-ek-uW0"/>
                         </constraints>
                     </view>
                     <connections>
