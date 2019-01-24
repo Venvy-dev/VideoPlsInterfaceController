@@ -19,10 +19,12 @@
 
 @property (weak, nonatomic) IBOutlet UIView *topControlView;
 @property (weak, nonatomic) IBOutlet UIView *bottomControlView;
+@property (weak, nonatomic) IBOutlet UIView *rightControlView;
 @property (weak, nonatomic) IBOutlet UISlider *playbackSlider;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
+@property (weak, nonatomic) IBOutlet UIButton *boardButton;
 
 - (IBAction)backButtonTapped:(id)sender;
 - (IBAction)playButtonTapped:(id)sender;
@@ -34,6 +36,8 @@
 - (void)setAVPlayerController:(VPAVPlayerController *)player;
 
 - (void)setBackButtonTappedToDo:(void (^)(void))excuteBlock;
+
+- (void)setSwitchActionToDo:(void (^)(BOOL))actionBlock;
 
 - (void)showControlView;
 - (void)hideControlView;

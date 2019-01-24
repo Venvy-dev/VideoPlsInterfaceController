@@ -49,6 +49,14 @@
     [self presentViewController:playerVC animated:YES completion:nil];
 }
 
+- (IBAction)mallButtonDidClick:(UIButton *)sender {
+
+}
+
+- (IBAction)enjoyButtonDidClick:(UIButton *)sender {
+
+}
+
 - (IBAction)exchangeUrlButtonDidClick:(UIButton *)sender {
     _index++;
     if (_index == [_urlArray count]) {

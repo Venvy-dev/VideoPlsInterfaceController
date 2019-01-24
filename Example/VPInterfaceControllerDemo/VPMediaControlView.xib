@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,7 +20,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="667" height="60"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00/00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvG-pN-udB" userLabel="timeLabel">
-                            <rect key="frame" x="572" y="33" width="90" height="14.5"/>
+                            <rect key="frame" x="572" y="33" width="90" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="15" id="48i-nF-Nor"/>
                                 <constraint firstAttribute="width" constant="90" id="NbP-9A-QGL"/>
@@ -78,6 +78,14 @@
                                 <action selector="playButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="umR-wJ-Zf6"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="em2-Bv-Eub">
+                            <rect key="frame" x="613" y="10" width="46" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="..."/>
+                            <connections>
+                                <action selector="moreButtonDidClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="gsA-TJ-wbN"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                     <constraints>
@@ -88,20 +96,55 @@
                         <constraint firstItem="FHA-SV-XKb" firstAttribute="centerX" secondItem="yVH-Ls-kRv" secondAttribute="centerX" id="nip-kz-0wm"/>
                     </constraints>
                 </view>
+                <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="phR-KQ-oF8" userLabel="RightControlView">
+                    <rect key="frame" x="582" y="60" width="85" height="265"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q2W-4R-WKN" userLabel="imageButton">
+                            <rect key="frame" x="11.5" y="42.5" width="47" height="47"/>
+                            <state key="normal" image="board_image.png"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EKL-AF-L2A" userLabel="gifButton">
+                            <rect key="frame" x="11.5" y="109.5" width="47" height="47"/>
+                            <state key="normal" image="board_gif.png"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fDk-Oz-Wz0" userLabel="boardButton">
+                            <rect key="frame" x="11.5" y="176.5" width="47" height="47"/>
+                            <state key="normal" image="board_opened_button.png"/>
+                            <connections>
+                                <action selector="boardButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="e5M-L8-LHL"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="Q2W-4R-WKN" firstAttribute="centerX" secondItem="phR-KQ-oF8" secondAttribute="centerX" id="1DD-rb-uDA"/>
+                        <constraint firstItem="Q2W-4R-WKN" firstAttribute="bottom" secondItem="EKL-AF-L2A" secondAttribute="top" constant="-20" id="NEG-Aa-tYa"/>
+                        <constraint firstItem="EKL-AF-L2A" firstAttribute="centerX" secondItem="phR-KQ-oF8" secondAttribute="centerX" id="hAm-mT-MgF"/>
+                        <constraint firstItem="fDk-Oz-Wz0" firstAttribute="top" secondItem="EKL-AF-L2A" secondAttribute="bottom" constant="20" id="l47-RL-K6h"/>
+                        <constraint firstItem="fDk-Oz-Wz0" firstAttribute="centerX" secondItem="phR-KQ-oF8" secondAttribute="centerX" id="mwr-l8-6TT"/>
+                        <constraint firstItem="EKL-AF-L2A" firstAttribute="centerY" secondItem="phR-KQ-oF8" secondAttribute="centerY" id="yDY-Jp-LS1"/>
+                    </constraints>
+                </view>
             </subviews>
             <constraints>
+                <constraint firstItem="phR-KQ-oF8" firstAttribute="bottom" secondItem="yVH-Ls-kRv" secondAttribute="top" id="Am1-dY-GCJ"/>
+                <constraint firstItem="phR-KQ-oF8" firstAttribute="top" secondItem="sSc-0a-Ksv" secondAttribute="bottom" id="C3k-cd-XJQ"/>
                 <constraint firstItem="sSc-0a-Ksv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="FCU-Js-7fA"/>
+                <constraint firstItem="phR-KQ-oF8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="trailing" constant="-70" id="GjR-zR-enu"/>
                 <constraint firstAttribute="bottom" secondItem="yVH-Ls-kRv" secondAttribute="bottom" id="TUP-pU-pnQ"/>
                 <constraint firstAttribute="trailing" secondItem="yVH-Ls-kRv" secondAttribute="trailing" id="Y5f-fD-gw9"/>
                 <constraint firstItem="yVH-Ls-kRv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="YoP-rC-o8F"/>
                 <constraint firstAttribute="trailing" secondItem="sSc-0a-Ksv" secondAttribute="trailing" id="aOy-c8-y24"/>
                 <constraint firstItem="sSc-0a-Ksv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="epZ-Vg-9Tr"/>
+                <constraint firstItem="phR-KQ-oF8" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="pwP-Go-RHZ"/>
             </constraints>
             <connections>
                 <outlet property="backButton" destination="gvt-Zn-yzx" id="tMk-bl-rwE"/>
+                <outlet property="boardButton" destination="fDk-Oz-Wz0" id="TDh-4M-SxK"/>
                 <outlet property="bottomControlView" destination="yVH-Ls-kRv" id="lda-Kt-9ff"/>
                 <outlet property="playButton" destination="FHA-SV-XKb" id="9eX-sy-VVg"/>
                 <outlet property="playbackSlider" destination="BTH-mh-Bwy" id="RTr-Af-Mnj"/>
+                <outlet property="rightControlView" destination="phR-KQ-oF8" id="ogJ-nF-SCZ"/>
                 <outlet property="timeLabel" destination="bvG-pN-udB" id="ORO-xT-IRt"/>
                 <outlet property="topControlView" destination="sSc-0a-Ksv" id="k2z-SH-Fsn"/>
             </connections>
@@ -109,6 +152,9 @@
         </view>
     </objects>
     <resources>
+        <image name="board_gif.png" width="47" height="47"/>
+        <image name="board_image.png" width="47" height="47"/>
+        <image name="board_opened_button.png" width="47" height="47"/>
         <image name="button_video_back" width="40" height="40"/>
         <image name="button_video_play" width="66" height="66"/>
     </resources>

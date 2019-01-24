@@ -9,7 +9,6 @@
 #import "VPAVPlayerController.h"
 #import <AVFoundation/AVFoundation.h>
 
-
 NSString *const VPAVPlayerIsPreparedToPlayNotification = @"VPAVPlayerIsPreparedToPlayNotification";
 NSString *const VPAVPlayerLoadStateDidChangeNotification = @"VPAVPlayerLoadStateDidChangeNotification";
 NSString *const VPAVPlayerPlaybackDidFinishNotification = @"VPAVPlayerPlaybackDidFinishNotification";
@@ -510,7 +509,7 @@ static const float kMaxHighWaterMarkMilli = 5 * 1000;
 #pragma mark -- KVO
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
-                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                        change:(NSDictionary<NSString *,id> *)change
                        context:(void *)context {
     if([keyPath isEqualToString:@"status"]) {
         AVPlayerItemStatus status = [[change objectForKey:NSKeyValueChangeNewKey] integerValue];
@@ -540,15 +539,18 @@ static const float kMaxHighWaterMarkMilli = 5 * 1000;
                 
                 AVPlayerItem *playerItem = (AVPlayerItem *)object;
                 NSTimeInterval duration = CMTimeGetSeconds(playerItem.duration);
-                if (duration <= 0)
+                if (duration <= 0) {
                     self.duration = 0.0f;
-                else
+                }
+                else {
                     self.duration = duration;
+                }
                 
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:VPAVPlayerIsPreparedToPlayNotification
+                [[NSNotificationCenter defaultCenter] postNotificationName:VPAVPlayerIsPreparedToPlayNotification
                  object:self];
             
+//                [_player pause];
+                
                 break;
             }
             case AVPlayerItemStatusFailed: {

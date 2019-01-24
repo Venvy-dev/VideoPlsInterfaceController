@@ -1,8 +1,4 @@
 # VideoPlsInterfaceContronller
-
-###0.0.2
-1. new test tag
-
 ###1.8.9
 1. 合并1.7.0 Live bug fix
 
